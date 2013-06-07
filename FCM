@@ -1,0 +1,9 @@
+#On how to use R to do fuzzy c-means clustering(FCM)
+install.packages('e1071') #this is the R package for FCM
+library('e1071')
+x=c(0)
+data.entry(x)
+y=seq(1:length(x))
+m=cbind(y,x)
+cl=cmeans(m)
+print(cl)
