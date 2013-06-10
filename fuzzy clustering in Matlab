@@ -1,1 +1,27 @@
 %%This is on how to do fuzzy c-means clustering in Matlab
+
+m=xlsread('Intermittent Demand.xls')   %% we must make sure that the excel file is editable
+x=m(1,1:end)
+[c,u,mad]=fcm(x',6)                    %% 6 is the number of clustering center.
+                                       %% every row represents a data point
+                                    
+%%c is the center, u is the membership matrix
+%%Next step is to fuzzify the dataset
+m=[]
+z=[]
+
+for i=1:size(u,2)
+    for j=1:length(c)
+        if u(j,i)==max(u(1:end,i))
+           m=m[m,j];break
+        end
+    end
+z=[z,c(j)]
+end
+
+%%
+MSE=dot(x-z,x-z)
+TSS=dot(x-mean(x),x-mean(x))
+R-square=1-MSE/TSS
+
+%% The R squre here is just the measure of the accuracy for the fuzzification, rather than the "FORECASTING"
