@@ -1,4 +1,4 @@
-%%This is on how to do fuzzy c-means clustering in Matlab
+%%This is on how to do fuzzy c-means clustering on inttermittent demand in Matlab
 
 m=xlsread('Intermittent Demand.xls')   %% we must make sure that the excel file is editable
 x=m(1,1:end)
