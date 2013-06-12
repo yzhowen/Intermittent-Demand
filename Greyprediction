@@ -1,0 +1,24 @@
+%%This is a function for grey system prediction in Matlab
+
+function predict=greypredict(x)
+n=length(x);
+B=ones(n-1,2);
+z=zeros(size(x));predict=zeros(size(x));predict(1)=x(1);
+x1=AGO(x);
+for i=2:length(x)
+    z(i)=0.5*x1(i)+0.5*x1(i-1);
+end
+B(:,1)=z(2:end)';
+y=x(2:end)';
+atilt=inv(B'*B)*B'*y;
+a=atilt(1);
+b=atilt(2);
+for i=2:n
+    predict(i)=(x(1)-b/a)*(1-exp(a))*exp((-1)*a*(i-1));
+end
+
+
+%%                       Yzhowen
+%%  Nanyang Technological University
+%% if you want to know more about grey system modelling and forecasting,
+%% just google 'Deng Julong'
