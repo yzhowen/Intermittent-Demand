@@ -1,0 +1,18 @@
+# ARIMA simulation from demand data
+
+library('gdata')
+x=read.table('clipboard')
+
+y=t(as.vector(x))
+k=length(y)
+d=seq(1:k-1)
+for (i in 1:k-1) 
+  { d[i]=y[i+1]-y[i]
+   }
+n=runif(k-1,min=1,max=k-1)
+n=floor(n)
+e=d[n]
+y_lag=y[1:k-1]
+theta=0.8
+y_star=c(y[1],y_lag+theta*e)
+ts.plot(y_star)
