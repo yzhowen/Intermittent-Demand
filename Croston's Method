@@ -1,0 +1,27 @@
+%%a matlab code
+
+%% THIS FUNTION IS USED TO FORECAST INVENTORY DEMAND 
+%% USING CROSTON"S METHOD
+
+function [z,p,y]=croston(x,alpha,beta)
+n=length(x);
+z0=x(x~=0);                  %% this is the series of demand sizes
+p0=diff(find(x));             %% this is the series of inter-demand intervals
+z=ses(z0,alpha);
+p=ses(p0,beta);
+y=zeros(1,n);
+y(1)=z(1)/p(1);
+for i=1:n-1
+    count=1;
+    if x(i)~=0
+        count=count+1;
+        y(i+1)=z(count)/p(count);
+    else
+        y(i+1)=z(count)/p(count);
+    end
+end
+end
+
+%%______________________________________________________________________%%
+%% Yuan Zihan %%
+&& Nanyang Technological University
