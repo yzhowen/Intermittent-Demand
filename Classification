@@ -1,3 +1,4 @@
+cls<-function (x){
 flag=seq(0,0,length.out=dim(x)[1])
 for (i in 1:dim(x)[1]){
   alpha=0.2;demand=as.vector(na.omit(t(as.vector(x[i,]))));
@@ -5,17 +6,21 @@ for (i in 1:dim(x)[1]){
   mu=mean(demand);
   k=kurtosis(demand);
   s=sd(demand)
+  I=IQR(demand)
+  Q=quantile(demand)[4]
  if ((mu<2*s) & (k>3)){
   
-   demand[which(demand<=(2*s))]=0;
+   demand[which(demand<=(Q+1.5*I))]=0;
    z=mean(demand[which(demand!=0)])
    if (length(which(demand!=0))>1){
      p=mean((1-alpha)^diff(which(demand!=0)))
-     if ((z*p)<(2*s)) {
+     if ((z*p)<(Q+1.5*I)) {
           flag[i]=1
      }
    } else{flag[i]=1}
  }
 }
+return(flag)
+}
 
-%%This program can be used to differentiate between intermittent demand and smooth demand patterns
+%%This function can be used to differentiate between intermittent demand and smooth demand patterns
