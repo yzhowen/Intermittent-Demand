@@ -1,0 +1,12 @@
+MSE1=seq(0,0,length.out=dim(x)[1])
+MSEMSE2=seq(0,0,length.out=dim(x)[1])          ##generate the vector to  store MSEs
+
+for (i in 1:dim(x)[1]) {
+  demand=as.vector(na.omit(t(as.vector(x[i,]))));
+  f1=ses(demand,alpha=0.2)
+  f2=croston(demand,alpha=0.2)
+  MSE1[i]=sum((f1$residuals)^2)
+  f2$residuals[1]=0
+  MSE2[i]=sum((f2$residuals)^2)
+    
+}
